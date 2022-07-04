@@ -3,13 +3,11 @@ const services = require('../services/TaskService');
 const getAll = async (req, res, next) => {
   try {
     const { query } = req;
-    let result = [];
-    console.log(query);
+    let result = await services.getAll();
     if (query.order === 'task') result = await services.taskOrdered();
     if (query.order === 'status') result = await services.statusOrdered();
-    if (query === {}) result = await services.getAll();
     return res.status(200).json(result);
-  } catch (err) {
+  } catch (err) { 
     return next(err);
   }
 };
